@@ -1,26 +1,48 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+select::expand {
+    display: none;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+
+select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -o-appearance: none;
+        appearance: none;
+    }
+
+@layer base {
+    h1 {
+        @apply text-2xl;
+    }
+
+    h2 {
+        @apply text-sm font-medium tracking-[0.01em];
+    }
+
+    h3 {
+        @apply text-sm font-normal;
+    }
+
+    h4 {
+        @apply text-xs;
+    }
+    
 }
 
-* {
-  box-sizing: border-box;
+
+.input {
+    @apply w-full outline-none text-[14px] placeholder:text-secondaryTwo py-[6px] pl-[25px] bg-secondarySix border-[0.5px] border-secondaryTwo/70 rounded-[4px] text-secondaryTwo
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-}
+
+ 

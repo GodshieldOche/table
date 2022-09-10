@@ -41,7 +41,7 @@ select {
 
 
 .input {
-    @apply w-full outline-none text-[14px] placeholder:text-secondaryTwo py-[6px] pl-[25px] bg-secondarySix border-[0.5px] border-secondaryTwo/70 rounded-[4px] text-secondaryTwo
+    @apply w-full outline-none text-sm placeholder:text-secondaryTwo py-[6px] pl-[25px] bg-secondarySix border-[0.5px] border-secondaryTwo/70 rounded-[4px] text-secondaryTwo
 }
 
 

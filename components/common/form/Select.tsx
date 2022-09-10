@@ -11,7 +11,7 @@ interface Props {
 const Select: React.FC<Props> = ({ value, options, setItem,placholder }) => {
 
   return (
-    <div className='relative'>
+    <div className='relative pr-3'>
       <select
         className='input !pr-3 capitalize'
         value={value}

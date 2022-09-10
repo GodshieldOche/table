@@ -10,7 +10,7 @@ interface Props {
 
 const Search: React.FC<Props> = ({placeholder, size, value, setItem}) => {
   return (
-    <div className='relative'>
+    <div className='relative pr-3 py-2'>
         <input
             type="text"
             className='input'

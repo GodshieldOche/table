@@ -112,7 +112,7 @@ const Filter: React.FC<Props> = ({ filter }) => {
 
     return (
         <div className='space-y-4'>
-            <div className="w-full flex items-center space-x-[22px] px-3 ">
+            <div className="w-full flex !flex-wrap items-center px-3 ">
                 <Search placeholder='Product Name or SKU' size={18} value={name} setItem={setName} />
                 <Search placeholder='Vendor Name or Vendor SKU' size={25} value={vendor} setItem={setVendor} />
                 <Select

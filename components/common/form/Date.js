@@ -9,7 +9,7 @@ const Date = ({startDate, endDate, setStartDate, setEndDate}) => {
  
   
   return (
-    <div className='relative'>
+    <div className='relative pr-3 py-2'>
       <DatePicker
         selectsRange={true}
         selected={startDate}

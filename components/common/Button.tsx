@@ -1,8 +1,14 @@
 import React from 'react'
 
-const Button: React.FC = () => {
+interface Props {
+  handleSubmit: () => void
+}
+
+const Button: React.FC<Props> = ({handleSubmit}) => {
   return (
-    <button className='py-2 px-3 bg-primaryTwo rounded-[3px]'>
+    <button
+      onClick={handleSubmit}
+      className='py-2 px-3 bg-primaryTwo rounded-[3px]'>
         <h2 className='text-white'>Apply</h2>
     </button>
   )

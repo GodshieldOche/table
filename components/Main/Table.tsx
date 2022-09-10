@@ -1,130 +1,132 @@
 import Image from 'next/image'
-import React from 'react'
+import React, { useState } from 'react'
+import { data } from '../../pages'
 import CheckBox from '../common/CheckBox'
+import Select from '../common/form/Select'
+import Status from '../common/Status'
+import TableSort from '../common/TableSort'
 
+interface Props {
+    data: data
+}
 
-const list = [
-    {
-        "createdAt": "2022-08-18T17:44:50.044Z",
-        "name": "Bespoke Fresh Bike",
-        "images": "http://loremflickr.com/640/480/abstract",
-        "status": "yellow",
-        "onSale": false,
-        "category": "Books",
-        "vendor": "Erdman - Murphy",
-        "quantity": 84,
-        "id": "1"
-    },
-    {
-        "createdAt": "2022-08-19T02:05:10.638Z",
-        "name": "Handcrafted Rubber Sausages",
-        "images": "http://loremflickr.com/640/480/abstract",
-        "status": "gold",
-        "onSale": true,
-        "category": "Baby",
-        "vendor": "Steuber, Bednar and Runolfsdottir",
-        "quantity": 85,
-        "id": "2"
-    },
-    {
-        "createdAt": "2022-08-19T00:05:57.928Z",
-        "name": "Generic Bronze Chips",
-        "images": "http://loremflickr.com/640/480/abstract",
-        "status": "grey",
-        "onSale": true,
-        "category": "Grocery",
-        "vendor": "Wolff, Wisoky and Kohler",
-        "quantity": 11,
-        "id": "3"
-    },
-    {
-        "createdAt": "2022-08-19T00:19:28.119Z",
-        "name": "Fantastic Rubber Bacon",
-        "images": "http://loremflickr.com/640/480/abstract",
-        "status": "tan",
-        "onSale": false,
-        "category": "Jewelery",
-        "vendor": "Langosh and Sons",
-        "quantity": 66,
-        "id": "4"
-    },
-    {
-        "createdAt": "2022-08-19T10:24:39.448Z",
-        "name": "Ergonomic Concrete Keyboard",
-        "images": "http://loremflickr.com/640/480/abstract",
-        "status": "maroon",
-        "onSale": false,
-        "category": "Automotive",
-        "vendor": "Harber LLC",
-        "quantity": 13,
-        "id": "5"
+const Table: React.FC<Props> = ({ data }) => {
+
+    const [selected, setSelected] = useState<string[]>([])
+
+    
+    const inArray = (id: string) => {
+        return selected.find((item) => {
+            return item === id
+        })
     }
-]
 
-const Table: React.FC = () => {
+    const allSelected = selected.length === data.length
+
+    const notEmpty = selected.length !== 0
+
+    const addToArray = (id: string) => {
+
+        if (id === "0" && allSelected) {
+            return setSelected([])
+        }
+
+        if (id === '0') {
+            return setSelected(data.map(item => {
+                return item.id
+            }))
+        }
+
+        let inArray = selected.find((item) => {
+            return item === id
+        } )
+
+        if (inArray) {
+            setSelected((prev) => {
+                return prev.filter((item) => {
+                    return item !== id
+                })
+            })
+        } else {
+            setSelected((prev) => [...prev, id])
+        }
+
+    }
+
+
   return (
-    <div>
-          <table className="w-full ">
-            <thead className="bg-secondaryOne text-primaryTwo ">
-                <tr className="">
-                    <th scope="col" className="px-3 py-[12px] text-left justify-start">
-                        <CheckBox />
-                    </th>
-                    <th scope="col" className="text-sm font-normal px-3 py-[12px] text-left">
-                        
-                    </th>
-                    {
-                        ["Product Name", "Status", "Qty", "Category", "On Sale", "Vendor"].map(item => (
-                            <th scope="col" className="text-sm text-primaryTwo font-normal px-3 py-4 text-left">
-                                {item}
-                            </th>
-                        ))
-                    }
-                </tr>
-              </thead>
-              <tbody className="bg-white  ">
-                  {
-                      list.map(item => (
-                          <tr key={item.id} className="">
-                              <td className="px-3 py-4 whitespace-nowrap text-sm  ">
-                                  <CheckBox />
-                              </td>
-                              <td className="px-3 py-4 whitespace-nowrap text-sm  ">
-                                  <div className='relative w-[85px] h-[85px] border border-secondaryTwo rounded-[5px] '>
-                                      <Image
-                                          src={item.images}
-                                          layout="fill"
-                                          objectFit='cover'
-                                          className='w-full h-full rounded-[5px]'
-                                      />
-                                  </div>
-                              </td>
-                              <td className="px-3 py-4 whitespace-normal text-sm  ">
-                                  <div className='max-w-[200px] font-normal'>
-                                      <h3 className='!font-normal'>{item.name}</h3>
-                                      <h3 className='!font-normal'>SKU 46442353</h3>
-                                  </div>
-                              </td>
-                              <td className="px-3 py-4 whitespace-nowrap text-sm capitalize  ">
-                                  {item.status}
-                              </td>
-                              <td className="px-3 py-4 whitespace-nowrap text-sm  ">
-                                  {item.quantity}
-                              </td>
-                              <td className="px-3 py-4 whitespace-nowrap text-sm capitalize  ">
-                                  {item.category}
-                              </td>
-                              <td className="px-3 py-4 whitespace-nowrap text-sm  ">
-                                  {item.onSale ? "Yes" : "No"}
-                              </td>
-                              <td className="px-3 py-4 whitespace-nowrap text-sm text-primaryOne ">
-                                  {item.vendor}
-                              </td>
-                          </tr>
-                      ))
-                  }
-              </tbody>
-          </table>  
+      <div>
+          <div className='w-full overflow-x-auto rounded-md shadow-md'>
+              <table className="w-full relative ">
+                  <thead className={` ${selected.length ? "opacity-5" : ""} bg-secondaryOne text-primaryTwo`}>
+                      <tr className="">
+                          <th scope="col" className="px-3 py-4 w-[20px] text-left justify-start">
+                              <CheckBox onClick={addToArray} inArray={inArray} id="0" />
+                          </th>
+                          <th scope="col" className="text-sm font-normal w-[75px] px-3 py-4 text-left">
+
+                          </th>
+                          {
+                              ["Product Name", "Status", "Qty", "Category", "On Sale", "Vendor"].map(item => (
+                                  <th key={item} scope="col" className="px-3 py-4 whitespace-nowrap">
+                                      <TableSort name={item} />
+                                  </th>
+                              ))
+                          }
+                      </tr>
+                  </thead>
+                  <div className={` ${selected.length ? "absolute top-0" : "hidden"} w-full flex items-center py-2 px-3 bg-secondaryOne space-x-6 text-primaryTwo `}>
+                      <CheckBox onClick={addToArray} inArray={inArray} id={'0'} notEmpty={notEmpty} isFull={allSelected} />
+                      <h3>
+                          {`${selected.length === data.length ? "All Items Selected" : selected.length + (selected.length === 1 ? " Item Selected" : " Items Selected")}`}
+                      </h3>
+                      <Select options={[]} placholder="Select Action" />
+                  </div>
+                  <tbody className="bg-white">
+                      {
+                          data.map(item => (
+                              <tr key={item.id} className="">
+                                  <td className="px-3 py-4 whitespace-nowrap text-sm  ">
+                                      <CheckBox onClick={addToArray} inArray={inArray} id={item.id} />
+                                  </td>
+                                  <td className="px-3 py-4 whitespace-nowrap  text-sm  ">
+                                      <div className='relative w-[75px] h-[75px] border border-secondaryTwo rounded-[5px] '>
+                                          <Image
+                                              src={item.images}
+                                              layout="fill"
+                                              objectFit='cover'
+                                              className='w-full h-full rounded-[5px]'
+                                          />
+                                      </div>
+                                  </td>
+                                  <td className="px-3 py-4 whitespace-nowrap text-sm  ">
+                                      <div className='space-y-2 max-w-[200px] whitespace-normal font-normal'>
+                                          <h3 className=''>{item.name}</h3>
+                                          <h3 className='text-secondaryTwo'>SKU 46442353</h3>
+                                      </div>
+                                  </td>
+                                  <td className={`px-3 py-4 whitespace-nowrap text-sm capitalize  `}>
+                                      <Status status={item.status}/>
+                                  </td>
+                                  <td className="px-3 py-4 whitespace-nowrap text-sm  ">
+                                      {item.quantity}
+                                  </td>
+                                  <td className="px-3 py-4 whitespace-nowrap text-sm capitalize  ">
+                                      {item.category}
+                                  </td>
+                                  <td className="px-3 py-4 whitespace-nowrap text-sm  ">
+                                      {item.onSale ? "Yes" : "No"}
+                                  </td>
+                                  <td className="px-3 py-4 whitespace-nowrap text-sm text-primaryOne ">
+                                      {item.vendor}
+                                  </td>
+                              </tr>
+                          ))
+                      }
+                  </tbody>
+              </table>  
+          </div>
+          
     </div>
   )
 }

@@ -5,7 +5,7 @@ import { AiOutlineCalendar } from 'react-icons/ai';
 
 
 
-const Date = ({startDate, endDate}) => {
+const Date = ({startDate, endDate, setStartDate, setEndDate}) => {
  
   
   return (
@@ -15,21 +15,13 @@ const Date = ({startDate, endDate}) => {
         selected={startDate}
         startDate={startDate}
         endDate={endDate}
-        className="input"
+        className="input pr-2"
         placeholderText="mm/dd/yy - mm/dd/yy"
-        // onChange={(dates) => {
-        //   const [startDate, endDate] = dates
-        //   setStartDate(startDate)
-        //   setEndDate(endDate)
-        //   setArr(['select day'])
-        //   setDays(0)
-        //   if (startDate && endDate) {
-        //     const diff = endDate.getTime() - startDate.getTime()
-        //     const days = Math.round(diff / (1000 * 60 * 60 * 24))
-        //     setDays(days + 1)
-        //   }
-        // }}
-        isClearable={true}
+        onChange={(dates) => {
+          const [startDate, endDate] = dates
+          setStartDate(startDate)
+          setEndDate(endDate)
+        }}
       />
       <div className='absolute top-[28%] left-2'>
         <AiOutlineCalendar className='!text-secondaryTwo !font-semibold !text-sm' />

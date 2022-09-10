@@ -5,7 +5,7 @@ interface Props {
   value?: string
   options: string[]
   placholder: string
-  setItem?: React.Dispatch<React.SetStateAction<string>>
+  setItem?: (e: any) => void;
 }
 
 const Select: React.FC<Props> = ({ value, options, setItem,placholder }) => {
@@ -15,7 +15,7 @@ const Select: React.FC<Props> = ({ value, options, setItem,placholder }) => {
       <select
         className='input !pr-3 capitalize'
         value={value}
-        onChange={(e) => {setItem!(e.target.value)}}
+        onChange={setItem}
       >
           {
           [placholder, ...options].map(option => (

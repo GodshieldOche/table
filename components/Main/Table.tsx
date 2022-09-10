@@ -56,7 +56,7 @@ const Table: React.FC<Props> = ({ data }) => {
 
   return (
       <div>
-          <div className='w-full overflow-x-auto rounded-md shadow-md'>
+          <div className='w-full overflow-x-auto '>
               <table className="w-full relative ">
                   <thead className={` ${selected.length ? "opacity-5" : ""} bg-secondaryOne text-primaryTwo`}>
                       <tr className="">

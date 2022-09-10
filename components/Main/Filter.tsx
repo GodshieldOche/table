@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { data } from '../../pages'
 import Button from '../common/Button'
+import FilterButton from '../common/FilterButton'
 import DateC from '../common/form/Date'
 import Search from '../common/form/Search'
 import Select from '../common/form/Select'
@@ -18,10 +19,37 @@ const Filter: React.FC<Props> = ({ filter }) => {
     const [onSale, setOnSale] = useState('')
     const [status, setStatus] = useState('')
     const [stock, setStock] = useState('')
+    const [filters, setFilters] = useState<string[]>([])
 
 
     const router = useRouter()
 
+
+    const removeFilter = (item: any) => {
+        const key = item.split(":")[0].trim()
+
+        delete router.query[key]
+
+        router.push({
+            pathname: router.pathname,
+            query: {
+                page: 1,
+                ...router.query
+            }
+        })
+    }
+
+    
+
+
+    useEffect(() => {
+        setFilters([])
+        for (const item in router.query) {
+            if (item !== "page") {
+                setFilters(prev => [...prev, `${item} : ${router.query[item]}` ])
+            }
+        }
+    }, [router.query])
 
 
     const reset = () => {
@@ -57,12 +85,12 @@ const Filter: React.FC<Props> = ({ filter }) => {
         if (name) {
             query.name = name
         }
-        if (onSale) {
+        if (onSale && onSale !== "On Sale") {
             query.onSale = onSale
         }
-        // if (status ) {
-        //     query.status = status
-        // }
+        if (status && status !== "Product Status" ) {
+            query.status = status
+        }
         if (fsDate && feDate) {
             query.createdAt = fsDate + "-" + feDate
         }
@@ -73,6 +101,7 @@ const Filter: React.FC<Props> = ({ filter }) => {
             pathname: router.pathname,
             query: {
                 ...router.query,
+                page: 1,
                 ...query
             },
         })
@@ -82,18 +111,66 @@ const Filter: React.FC<Props> = ({ filter }) => {
     }
 
     return (
-        <div className="w-full flex items-center space-x-[22px] px-3 ">
-            <Search placeholder='Product Name or SKU' size={18} value={vendor} setItem={setVendor} />
-            <Search placeholder='Vendor Name or Vendor SKU' size={25} value={name} setItem={setName} />
-            <Select value={onSale} placholder="On Sale" options={["True", "False"]} setItem={setOnSale} />
-            <Select value={status} placholder="Product Status" options={filter} setItem={setStatus} />
-            <Select value={stock} placholder="In Stock" options={["no data"]} setItem={setStock} />
-            <DateC
-                startDate={startDate}
-                setEndDate={setEndDate}
-                setStartDate={setStartDate}
-                endDate={endDate} />
-            <Button handleSubmit={handleSubmit} />
+        <div className='space-y-4'>
+            <div className="w-full flex items-center space-x-[22px] px-3 ">
+                <Search placeholder='Product Name or SKU' size={18} value={name} setItem={setName} />
+                <Search placeholder='Vendor Name or Vendor SKU' size={25} value={vendor} setItem={setVendor} />
+                <Select
+                    value={onSale}
+                    placholder="On Sale"
+                    options={["True", "False"]}
+                    setItem={(e) => {
+                        e.preventDefault()
+                        setOnSale(e.target.value)
+                    }} />
+                <Select
+                    value={status}
+                    placholder="Product Status"
+                    options={filter}
+                    setItem={(e) => {
+                        e.preventDefault()
+                        setStatus(e.target.value)
+                    }} />
+                <Select
+                    value={stock}
+                    placholder="In Stock"
+                    options={["no data"]}
+                    setItem={(e) => {
+                        e.preventDefault()
+                        setStock(e.target.value)
+                    }} />
+                <DateC
+                    startDate={startDate}
+                    setEndDate={setEndDate}
+                    setStartDate={setStartDate}
+                    endDate={endDate} />
+                <Button handleSubmit={handleSubmit} />
+            </div>
+            {
+                filters.length >= 1 &&
+                <div className='px-3 space-y-4'>
+                    <div className='flex items-center space-x-[12px]'>
+                        {
+                            filters && filters.map((filter, index) => {
+                                return <FilterButton item={filter} key={index} removeFilter={removeFilter} />
+                            })
+                        }
+                    </div>
+                    <div>
+                            <h3
+                                onClick={() => {
+                                    router.push({
+                                        pathname: router.pathname,
+                                        query: {}
+                                    })
+                                }}
+                                className='text-primaryOne cursor-pointer hover:bg-primaryOne hover:text-white border w-fit capitalize border-primaryOne rounded-[5px] py-[5px] px-3 '>
+                            Clear all filters
+                        </h3>   
+                    </div>
+                </div>
+            }
+            
         </div>
     )
 }

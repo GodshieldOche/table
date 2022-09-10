@@ -17,7 +17,7 @@ const Home: React.FC<Props> = ({data, filter, totalItems}) => {
     const page = Number(router.query.page) || 1
 
     return (
-        <div className='w-full space-y-[16px]'>
+        <div className='w-full space-y-6'>
             <Filter filter={filter} />
             <Table data={data} />
             {

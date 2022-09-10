@@ -25,7 +25,7 @@ interface Props {
 const HomePage: NextPage<Props> = ({data, totalItems, filter}) => {
 
   return (
-    <div className="mt-[16px] mb-28 w-full">
+    <div className="mt-[16px] mb-16 w-full">
       <Head>
         <title>Table App</title>
         <meta name="description" content="Created by Godshield Oche Godshield" />
@@ -37,8 +37,10 @@ const HomePage: NextPage<Props> = ({data, totalItems, filter}) => {
 }
 
 export async function getServerSideProps(context: any) {
-  const page = context.query.page || 1
-  const {name, vendor, status, createdAt, onSale } = context.query
+  let page = context.query.page || 1
+  const { name, vendor, status, createdAt, onSale } = context.query
+
+
 
   let link = `https://60a8e2a620a641001730664e.mockapi.io/api/products/?page=${page}&limit=5`
   let link2 = `https://60a8e2a620a641001730664e.mockapi.io/api/products/?page=${page}`
@@ -68,8 +70,6 @@ export async function getServerSideProps(context: any) {
 
   const result2 = await axios.get(link2)
 
-  console.log(link2)
-
 
   const totalItems = result2.data.length
 
@@ -85,8 +85,6 @@ export async function getServerSideProps(context: any) {
     }
     uniqueFilter.push(item)
   })
-
-  console.log(totalItems, uniqueFilter)
 
   const data = result.data
   

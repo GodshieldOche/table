@@ -37,9 +37,9 @@ const Pagination: React.FC<Props> = ({ page, itemsPerPage, totalItems }) => {
               innerClass='border border-secondaryFive flex rounded-r-[4px] rounded-l-[4px]'
               activeClass='bg-secondaryOne '
               itemClass='border-r border-secondaryFive py-[8px] px-[13px]'
-              linkClass='text-secondaryTwo py-[8px] px-[8px]'
+              linkClass='text-secondaryTwo text-sm lg:text-base lg:py-[8px] lg:px-[8px] py-[5px] px-[5px]'
               itemClassNext='!border-r-0'
-              activeLinkClass="text-secondaryTwo py-[8px] px-[8px]"
+              activeLinkClass="text-secondaryTwo text-sm lg:text-base lg:py-[8px] lg:px-[8px] py-[5px] px-[5px]"
           />
       </div>
   )

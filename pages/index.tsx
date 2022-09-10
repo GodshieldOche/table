@@ -9,7 +9,7 @@ export type data = {
   name: string;
   images: string;
   status: string;
-  onSale: boolean;
+  onSale: any;
   category: string;
   vendor: string;
   quantity: number;

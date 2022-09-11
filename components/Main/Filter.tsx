@@ -92,7 +92,7 @@ const Filter: React.FC<Props> = ({ filter }) => {
             query.status = status
         }
         if (fsDate && feDate) {
-            query.createdAt = fsDate + "-" + feDate
+            query.createdAt = fsDate.substring(0, 10) + feDate.substring(0, 10)
         }
 
 

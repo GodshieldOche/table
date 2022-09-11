@@ -25,6 +25,7 @@ const Table: React.FC<Props> = ({ data }) => {
     const [sortData, setSortData] = useState<data>(data)
 
     useEffect(() => {
+        setSelected([])
         setSortData(data)
     }, data)
 

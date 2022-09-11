@@ -61,10 +61,10 @@ export async function getServerSideProps(context: any) {
     link = link.concat(`&onSale=${onSale}`)
     link2 = link2.concat(`&onSale=${onSale}`)
   }
-  if (createdAt) {
-    link = link.concat(`&createdAt=${createdAt}`)
-    link2 = link2.concat(`&createdAt=${createdAt}`)
-  }
+  // if (createdAt) {
+  //   link = link.concat(`&createdAt=${createdAt}`)
+  //   link2 = link2.concat(`&createdAt=${createdAt}`)
+  // }
   
   const result = await axios.get(link)
 

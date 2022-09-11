@@ -9,7 +9,7 @@ const Date = ({startDate, endDate, setStartDate, setEndDate}) => {
  
   
   return (
-    <div className='pr-3 w-full md:w-fit md:py-2'>
+    <div className='md:pr-3 w-full md:w-fit md:py-2'>
       <div className='relative'>
         <DatePicker
           selectsRange={true}

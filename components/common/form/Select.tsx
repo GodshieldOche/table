@@ -12,7 +12,7 @@ interface Props {
 const Select: React.FC<Props> = ({ value, options, setItem, placholder, inTable }) => {
 
   return (
-    <div className={`${inTable ? "" : "w-full md:w-fit pr-3"}  `}>
+    <div className={`${inTable ? "" : "w-full md:w-fit md:pr-3"}  `}>
       <div className='relative'>
         <select
           className='input !pr-3 capitalize'

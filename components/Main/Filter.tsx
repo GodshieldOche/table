@@ -27,23 +27,6 @@ const Filter: React.FC<Props> = ({ filter }) => {
     const router = useRouter()
 
 
-    const removeFilter = (item: any) => {
-        const key = item.split(":")[0].trim()
-
-        delete router.query[key]
-
-        router.push({
-            pathname: router.pathname,
-            query: {
-                page: 1,
-                ...router.query
-            }
-        })
-    }
-
-    
-
-
     useEffect(() => {
         setFilters([])
         for (const item in router.query) {
@@ -62,6 +45,21 @@ const Filter: React.FC<Props> = ({ filter }) => {
         setOnSale("On Sale")
         setStatus("Product Status")
         setStock("In Stock")
+    }
+
+
+    const removeFilter = (item: any) => {
+        const key = item.split(":")[0].trim()
+
+        delete router.query[key]
+
+        router.push({
+            pathname: router.pathname,
+            query: {
+                page: 1,
+                ...router.query
+            }
+        })
     }
 
 
@@ -112,7 +110,6 @@ const Filter: React.FC<Props> = ({ filter }) => {
         })
 
         reset()
-        
     }
 
     return (

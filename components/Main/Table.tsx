@@ -128,7 +128,7 @@ const Table: React.FC<Props> = ({ data }) => {
                       <h3>
                           {`${selected.length === data.length ? "All Items Selected" : selected.length + (selected.length === 1 ? " Item Selected" : " Items Selected")}`}
                       </h3>
-                      <Select options={[]} placholder="Select Action" />
+                      <Select options={[]} placholder="Select Action" inTable={true} />
                   </div>
                   <tbody className="bg-white">
                       {

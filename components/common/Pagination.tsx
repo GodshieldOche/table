@@ -24,7 +24,7 @@ const Pagination: React.FC<Props> = ({ page, itemsPerPage, totalItems }) => {
     }
 
   return (
-      <div className='w-fit px-3 !mt-[40px]'>
+      <div className='w-fit px-3 !mt-[35px]'>
           <Paginate
               activePage={page}
               itemsCountPerPage={itemsPerPage}

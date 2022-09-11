@@ -29,7 +29,7 @@ const FilterButton: React.FC<Props> = ({item, removeFilter}) => {
     }
 
   return (
-    <button className='py-[5px] flex items-center space-x-1  px-[6px] bg-secondaryOne rounded-[6px]  '>
+    <button className='py-[5px] mr-[12px] mb-[12px] flex items-center space-x-1  px-[6px] bg-secondaryOne rounded-[6px]  '>
           {
               textFormatter()
           }

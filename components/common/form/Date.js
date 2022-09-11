@@ -9,22 +9,24 @@ const Date = ({startDate, endDate, setStartDate, setEndDate}) => {
  
   
   return (
-    <div className='relative pr-3 py-2'>
-      <DatePicker
-        selectsRange={true}
-        selected={startDate}
-        startDate={startDate}
-        endDate={endDate}
-        className="input pr-2"
-        placeholderText="mm/dd/yy - mm/dd/yy"
-        onChange={(dates) => {
-          const [startDate, endDate] = dates
-          setStartDate(startDate)
-          setEndDate(endDate)
-        }}
-      />
-      <div className='absolute top-[28%] left-2'>
-        <AiOutlineCalendar className='!text-secondaryTwo !font-semibold !text-sm' />
+    <div className='pr-3 w-full md:w-fit md:py-2'>
+      <div className='relative'>
+        <DatePicker
+          selectsRange={true}
+          selected={startDate}
+          startDate={startDate}
+          endDate={endDate}
+          className="input pr-2"
+          placeholderText="mm/dd/yy - mm/dd/yy"
+          onChange={(dates) => {
+            const [startDate, endDate] = dates
+            setStartDate(startDate)
+            setEndDate(endDate)
+          }}
+        />
+        <div className='absolute h-full top-0 bottom-0 my-auto left-2 flex flex-col justify-center'>
+          <AiOutlineCalendar className='!text-secondaryTwo !font-semibold !text-sm' />
+        </div>
       </div>
     </div>
   )

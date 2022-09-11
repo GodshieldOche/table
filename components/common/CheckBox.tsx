@@ -23,7 +23,7 @@ const CheckBox: React.FC<Props> = ({ id, onClick, inArray, isFull, notEmpty }) =
       onClick={() => onClick(id)}
       className={`${inArray(id) || notEmpty ? "bg-primaryOne border-primaryOne" : "bg-white border-secondaryTwo"} py-[0.5px] px-[0.5x] border  rounded-[2px] cursor-pointer  `}>
         {
-          notEmpty && id === "0"
+          notEmpty && id === "0" && !isFull
           ? <TbMinus className='!text-white !text-sm ' />
           : <BsCheck className='!text-white !text-sm ' />
         }

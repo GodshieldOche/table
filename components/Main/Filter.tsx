@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { data } from '../../pages'
 import Button from '../common/Button'
 import FilterButton from '../common/FilterButton'
 import DateC from '../common/form/Date'
 import Search from '../common/form/Search'
 import Select from '../common/form/Select'
+import { IoFilterSharp } from 'react-icons/io5';
+
 
 interface Props {
     filter: string[]
@@ -20,6 +21,7 @@ const Filter: React.FC<Props> = ({ filter }) => {
     const [status, setStatus] = useState('')
     const [stock, setStock] = useState('')
     const [filters, setFilters] = useState<string[]>([])
+    const [toggleFilter, setToggleFilter] = useState<boolean>(false)
 
 
     const router = useRouter()
@@ -96,7 +98,10 @@ const Filter: React.FC<Props> = ({ filter }) => {
         }
 
 
-        // console.log(query)
+        if (toggleFilter) {
+            setToggleFilter(false)
+        }
+
         router.push({
             pathname: router.pathname,
             query: {
@@ -111,8 +116,16 @@ const Filter: React.FC<Props> = ({ filter }) => {
     }
 
     return (
-        <div className='space-y-4'>
-            <div className="w-full flex !flex-wrap items-center px-3 ">
+        <div className='space-y-4 '>
+            {/* Conditional Toggle Filter Button */}
+            <div
+                onClick={() => setToggleFilter(!toggleFilter)}
+                className=' md:hidden cursor-pointer w-fit rounded-[5px] py-[5px] px-3 mx-3 flex items-center space-x-2 bg-white border border-secondaryFive '>
+                <IoFilterSharp className='!text-primaryTwo ' />
+                <h3 className='text-primaryTwo'>Filter</h3>
+            </div>
+            {/* Main filter Element */}
+            <div className={` ${toggleFilter ? "flex" : "hidden md:flex"}  w-full transition-all ease-in duration-1000 flex-col space-y-2 md:space-y-0 md:flex-row !flex-wrap items-center px-3 `}>
                 <Search placeholder='Product Name or SKU' size={18} value={name} setItem={setName} />
                 <Search placeholder='Vendor Name or Vendor SKU' size={25} value={vendor} setItem={setVendor} />
                 <Select
@@ -146,10 +159,11 @@ const Filter: React.FC<Props> = ({ filter }) => {
                     endDate={endDate} />
                 <Button handleSubmit={handleSubmit} />
             </div>
+            {/* Conditional Clear filter Element */}
             {
                 filters.length >= 1 &&
-                <div className='px-3 space-y-4'>
-                    <div className='flex items-center space-x-[12px]'>
+                <div className='px-3 space-y-2 md:space-y-4'>
+                    <div className='flex items-center flex-wrap'>
                         {
                             filters && filters.map((filter, index) => {
                                 return <FilterButton item={filter} key={index} removeFilter={removeFilter} />

@@ -10,19 +10,22 @@ interface Props {
 
 const Search: React.FC<Props> = ({placeholder, size, value, setItem}) => {
   return (
-    <div className='relative pr-3 py-2'>
+    <div className='w-full md:w-fit pr-3 md:py-2'>
+      <div className='relative'>
         <input
-            type="text"
-            className='input'
-            placeholder={placeholder}
-            value={value}
-            onChange={(e) => {setItem(e.target.value)}}
-            size={size}
+          type="text"
+          className='input'
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => { setItem(e.target.value) }}
+          size={size}
         />
-        <div className='absolute top-[28%] left-2'>
-          <AiOutlineSearch className='text-secondaryTwo text-sm'/>
+        <div className='absolute h-full top-0 bottom-0 my-auto left-2 flex flex-col justify-center'>
+          <AiOutlineSearch className='text-secondaryTwo text-sm' />
         </div>
+      </div>
     </div>
+    
   )
 }
 

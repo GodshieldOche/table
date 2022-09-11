@@ -20,10 +20,12 @@ const Home: React.FC<Props> = ({data, filter, totalItems}) => {
         <div className='w-full space-y-6'>
             <Filter filter={filter} />
             <Table data={data} />
-            {
-                totalItems > 5 && <Pagination page={page} itemsPerPage={5} totalItems={totalItems} />
+            <div className='w-full flex items-center justify-center lg:justify-start '>
+                {
+                    totalItems > 5 && <Pagination page={page} itemsPerPage={5} totalItems={totalItems} />
 
-            }
+                }
+            </div>
         </div>
     )
 }
